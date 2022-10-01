@@ -161,7 +161,7 @@ public class Alimentos extends javax.swing.JFrame {
         cbUnidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbUnidade.setEnabled(false);
 
-        jLabel4.setText("Quant proteína");
+        jLabel4.setText("Quant. proteína");
 
         txtQuantProt.setEnabled(false);
 
@@ -234,7 +234,7 @@ public class Alimentos extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtQuantCalo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
