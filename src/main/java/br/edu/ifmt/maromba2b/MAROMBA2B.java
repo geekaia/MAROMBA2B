@@ -5,6 +5,8 @@
 package br.edu.ifmt.maromba2b;
 
 import br.edu.ifmt.maromba2b.Alimentos;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -17,6 +19,23 @@ public class MAROMBA2B {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        try {
+    for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+        if ("Nimbus".equals(info.getName())) {
+            UIManager.setLookAndFeel(info.getClassName());
+            break;
+        }
+    }
+} catch (UnsupportedLookAndFeelException e) {
+    // handle exception
+} catch (ClassNotFoundException e) {
+    // handle exception
+} catch (InstantiationException e) {
+    // handle exception
+} catch (IllegalAccessException  e) {
+    // handle exception
+}
+
         
         Alimentos al  = new Alimentos(); 
         al.setVisible(true);
