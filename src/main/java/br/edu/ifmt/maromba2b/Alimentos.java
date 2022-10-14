@@ -339,6 +339,13 @@ public class Alimentos extends javax.swing.JFrame {
               else if(opcSel.equals("CSV"))
                   data += al[0] +";"+al[1] +"\n";
          }
+        if (opcSel.equals("PDF")) { 
+            GerarPDF pdfFile = new GerarPDF(con.ListarAlimentos()); 
+            
+            return ; 
+        }
+        
+        
         String arquivoSaida="relatorio.txt"; 
          if(opcSel.equals("CSV"))
              arquivoSaida="relatorio.csv";         

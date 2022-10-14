@@ -11,13 +11,17 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter; /**
+import com.itextpdf.text.pdf.PdfWriter; 
+
+import java.util.List;
+ 
+ /**
 * This class is used to create a pdf file using iText jar.
 * @author w3spoint
 */
 public class GerarPDF {
 
-    public GerarPDF() {
+    public GerarPDF(List<Object []> alimentoslist) {
         try {
             //Create Document instance.
             Document document = new Document();
@@ -29,17 +33,21 @@ public class GerarPDF {
             //Open the document.
             document.open();
             //Create Table object, Here 4 specify the no. of columns
-            PdfPTable pdfPTable = new PdfPTable(4);
+            PdfPTable pdfPTable = new PdfPTable(2);
             //Create cells
-            PdfPCell pdfPCell1 = new PdfPCell(new Paragraph("Cell 1"));
-            PdfPCell pdfPCell2 = new PdfPCell(new Paragraph("Cell 2"));
-            PdfPCell pdfPCell3 = new PdfPCell(new Paragraph("Cell 3"));
-            PdfPCell pdfPCell4 = new PdfPCell(new Paragraph("Cell 4"));
+            PdfPCell pdfPCell1 = new PdfPCell(new Paragraph("ID"));
+            PdfPCell pdfPCell2 = new PdfPCell(new Paragraph("Nome"));
+            
+            
+            String data="";
+            for (Object[] al: alimentoslist) { 
+                     data += al[0] +" "+al[1] +"\n"; 
+             }
+
             //Add cells to table
             pdfPTable.addCell(pdfPCell1);
             pdfPTable.addCell(pdfPCell2);
-            pdfPTable.addCell(pdfPCell3);
-            pdfPTable.addCell(pdfPCell4); //Add content to the document using Table objects.
+            
             document.add(pdfPTable);
             //Close document and outputStream.
             document.close();
@@ -52,4 +60,4 @@ public class GerarPDF {
     }
     
     
-    }}
+    }
