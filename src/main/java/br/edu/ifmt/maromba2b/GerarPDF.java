@@ -38,21 +38,39 @@ public class GerarPDF {
             PdfPCell pdfPCell1 = new PdfPCell(new Paragraph("ID"));
             PdfPCell pdfPCell2 = new PdfPCell(new Paragraph("Nome"));
             
+            pdfPTable.addCell(pdfPCell1);
+            pdfPTable.addCell(pdfPCell2);
             
             String data="";
             for (Object[] al: alimentoslist) { 
-                     data += al[0] +" "+al[1] +"\n"; 
-             }
+                    /// data += al[0] +" "+al[1] +"\n"; 
+                     
+                    PdfPCell col1 = new PdfPCell(new Paragraph(al[0]+""));
+                    PdfPCell col2 = new PdfPCell(new Paragraph(al[1]+""));
 
-            //Add cells to table
-            pdfPTable.addCell(pdfPCell1);
-            pdfPTable.addCell(pdfPCell2);
+                    pdfPTable.addCell(col1);
+                    pdfPTable.addCell(col2);
+             }
+            document.add(new Paragraph("LISTA DE ALIMENTOS"));
+            document.add(new Paragraph(""));
+
+           
             
             document.add(pdfPTable);
             //Close document and outputStream.
             document.close();
             outputStream.close();
             System.out.println("Pdf created successfully.");
+            
+            try {
+                Process process; 
+               process = Runtime.getRuntime()
+               .exec(String.format("evince %s", "RelatorioPDF.pdf"));
+
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+            
         } catch (Exception e) {
          e.printStackTrace();
         }
