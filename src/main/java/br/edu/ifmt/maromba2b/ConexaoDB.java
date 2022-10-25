@@ -117,13 +117,13 @@ public class ConexaoDB {
         }           
     }
     
-     public List<Object []> ListarAlimentos() { // copie aqui
+     public List<Object []> ListarAlimentos(String pesquisa) { // copie aqui
            Statement stm;  
            List<Object []> lista =   new ArrayList<Object []> ();   // copie aqui
         try {
             stm = conn.createStatement(); // copie aqui id, - abaixo
                 ResultSet rs = stm.executeQuery("select id, descricao, unidade, "
-                        + "valproteina, valcalorias  from alimentos;"); 
+                        + "valproteina, valcalorias  from alimentos where descricao like '%"+pesquisa+"%';"); 
                 int cont = 0; 
                 while (rs.next()){
                     String nome = rs.getString("descricao"); 

@@ -25,16 +25,16 @@ public class Alimentos extends javax.swing.JFrame {
         initComponents();
         con = new ConexaoDB();
         con.connect();
-        fillTable(); // coloque aqui
+        fillTable(""); // coloque aqui
     }
     
-    public void fillTable(){
+    public void fillTable(String pesquisa){
         
        String col[] = {"ID","DESCRIÇÃO","UNIDADE", "PROTEÍNAS", "CALORIAS"};
        
         DefaultTableModel tableModel = new DefaultTableModel(col, 0);
          
-         for (Object[] al: con.ListarAlimentos()) {
+         for (Object[] al: con.ListarAlimentos(pesquisa)) {
               tableModel.addRow(al);
          }
          
@@ -58,7 +58,7 @@ public class Alimentos extends javax.swing.JFrame {
         btnRelatorio = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtPesquisar = new javax.swing.JTextField();
         btnPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -138,6 +138,11 @@ public class Alimentos extends javax.swing.JFrame {
         jLabel1.setText("Pesquisar");
 
         btnPesquisar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/search.png"))); // NOI18N
+        btnPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -185,7 +190,7 @@ public class Alimentos extends javax.swing.JFrame {
                                 .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 311, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
@@ -213,7 +218,7 @@ public class Alimentos extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,7 +319,7 @@ public class Alimentos extends javax.swing.JFrame {
             } 
         }
         con.remover(idremove);
-        fillTable();
+        fillTable("");
 
     
     }//GEN-LAST:event_btnRemoverActionPerformed
@@ -333,14 +338,14 @@ public class Alimentos extends javax.swing.JFrame {
         String opcSel = res.toString();
         
         String data="";
-        for (Object[] al: con.ListarAlimentos()) {
+        for (Object[] al: con.ListarAlimentos("")) {
               if (opcSel.equals("TXT"))
                  data += al[0] +" "+al[1] +"\n";
               else if(opcSel.equals("CSV"))
                   data += al[0] +";"+al[1] +"\n";
          }
         if (opcSel.equals("PDF")) { 
-            GerarPDF pdfFile = new GerarPDF(con.ListarAlimentos()); 
+            GerarPDF pdfFile = new GerarPDF(con.ListarAlimentos("")); 
             
             return ; 
         }
@@ -378,6 +383,11 @@ public class Alimentos extends javax.swing.JFrame {
   
         
     }//GEN-LAST:event_btnRelatorioActionPerformed
+
+    private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
+        // TODO add your handling code here:
+        fillTable(txtPesquisar.getText());
+    }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -429,9 +439,9 @@ public class Alimentos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JTextField txtDescricao;
+    private javax.swing.JTextField txtPesquisar;
     private javax.swing.JTextField txtQuantCalo;
     private javax.swing.JTextField txtQuantProt;
     // End of variables declaration//GEN-END:variables
