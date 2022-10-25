@@ -20,6 +20,7 @@ public class Alimentos extends javax.swing.JFrame {
     /**
      * Creates new form Alimentos
      */
+    String  idSelEdit="-1";
     ConexaoDB con;
     public Alimentos() {
         initComponents();
@@ -155,6 +156,11 @@ public class Alimentos extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel2.setText("Descrição do alimento");
@@ -163,7 +169,7 @@ public class Alimentos extends javax.swing.JFrame {
 
         jLabel3.setText("Unidade");
 
-        cbUnidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbUnidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "100G", "UNID" }));
         cbUnidade.setEnabled(false);
 
         jLabel4.setText("Quant. proteína");
@@ -388,6 +394,31 @@ public class Alimentos extends javax.swing.JFrame {
         // TODO add your handling code here:
         fillTable(txtPesquisar.getText());
     }//GEN-LAST:event_btnPesquisarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+         int linhaAtual = jTable1.getSelectedRow();  
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel(); 
+        for (int i = 0; model.getRowCount() > i; i++) {
+            if (linhaAtual == i) {
+                idSelEdit = (String) model.getValueAt(i, 0);
+                String desc = (String) model.getValueAt(i, 1);
+                String unid = (String) model.getValueAt(i, 2);
+                String valproteina =  (String) model.getValueAt(i, 3);
+                String  valcalorias =   (String) model.getValueAt(i, 4);
+          
+                txtDescricao.setText(desc);
+                cbUnidade.setSelectedItem(unid);
+                txtQuantCalo.setText(valcalorias);
+                txtQuantProt.setText(valproteina);
+                break; 
+            }
+        }
+        txtDescricao.setEnabled(true);
+        cbUnidade.setEnabled(true);
+        txtQuantCalo.setEnabled(true);
+        txtQuantProt.setEnabled(true);
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
